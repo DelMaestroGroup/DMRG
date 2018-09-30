@@ -6,8 +6,8 @@ DMRG for studying entanglement in 1d systems
 
 Requires:
 
- * (https://github.com/jarro2783/cxxopts)[cxxopts] 
- * (http://itensor.org/)[ITensor]
+ * [cxxopts](https://github.com/jarro2783/cxxopts) 
+ * [ITensor](http://itensor.org/)
 
 ## Usage
 
