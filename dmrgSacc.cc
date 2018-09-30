@@ -345,6 +345,7 @@ int main(int argc, char* argv[]) {
                 if(pna > 1E-12) PnavN += -pna*log(pna);
             }
 
+            /* printfln("%18.8e%18.8e%18.8e\n",energy,SvN,(SvN-PnvN)); */
             out_file << boost::format("%18.8e%18.8e%18.8e%18.8e\n") % cV % energy % SvN % (SvN-PnvN);
             out_file.flush();
 
