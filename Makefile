@@ -21,6 +21,9 @@ include $(LIBRARY_DIR)/options.mk
 CCFLAGS+= -I$(HOME)/local/include/
 CCFLAGS+= -I/usr/local/include/
 
+CCGFLAGS+= -I$(HOME)/local/include/
+CCGFLAGS+= -I/usr/local/include/
+
 TENSOR_HEADERS=$(LIBRARY_DIR)/itensor/core.h
 
 #Mappings --------------
