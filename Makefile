@@ -1,4 +1,4 @@
-LIBRARY_DIR=$(HOME)/local/src/itensor
+LIBRARY_DIR=$(HOME)/local/src/ITensor
 
 APP=dmrgSacc
 
