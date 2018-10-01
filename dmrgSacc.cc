@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
             ("log_scale", "use a logarithmic spacing for the interaction strength")
             ("n,num_interaction", "the number of interaction points", cxxopts::value<int>(),"n")
             ("N, number_particles", "number of particles", cxxopts::value<int>(),"N")
-            ("V, interaction_stength", "interaction strength", cxxopts::value<double>(),"V")
+            ("V, interaction", "interaction strength", cxxopts::value<double>(),"V")
             ("i,Vi", "initial interaction strength", cxxopts::value<double>(),"Vi")
             ("f,Vf", "final interaction strength", cxxopts::value<double>(),"Vf")
             ("dV", "interaction strength step", cxxopts::value<double>(),"dV")
@@ -99,6 +99,7 @@ int main(int argc, char* argv[]) {
             cout << "\nNeed to specify the number of particles N" << endl;
             exit(0);
         }
+
         if (!params.count("V")) {
             if (!(params.count("Vi") && params.count("Vf"))){
                 cout << options.help({""}) << endl;
@@ -119,7 +120,7 @@ int main(int argc, char* argv[]) {
             exit(0);
         }
 
-        if (!(params.count("dV") || params.count("num_interaction"))) {
+        if (!params.count("V") && !(params.count("dV") || params.count("num_interaction"))) {
             cout << options.help({""}) << endl;
             cout << "\nNeed to specify at least one of dV or num_interaction" << endl;
             exit(0);
@@ -141,27 +142,32 @@ int main(int argc, char* argv[]) {
         }
 
         double V,Vi,Vf;
-        double dV,num_interaction;
+        double dV;
+        int num_interaction;
 
         /* Collect and assign all options */
         if (params.count("V")){
             V = params["V"].as<double>();
             Vi = params["V"].as<double>();
             Vf = params["V"].as<double>();
+            num_interaction = 1;
         }
         else{
             V = params["Vi"].as<double>();
             Vi = params["Vi"].as<double>();
             Vf = params["Vf"].as<double>();
         }
+
         if (params.count("dV")) {
             dV = params["dV"].as<double>();
             num_interaction = floor((Vf-Vi)/dV) + 1;
         }
-        else
+        else if (params.count("num_interaction"))
             num_interaction = params["num_interaction"].as<int>();
-
-        auto& N = params["N"].as<int>();
+        else
+            num_interaction = 1;
+            
+        int N = params["N"].as<int>();
         auto L = 2*N;
 
         /* Now we create the list of interaction values */
@@ -178,6 +184,7 @@ int main(int argc, char* argv[]) {
         }
         else 
             interaction = linspace(Vi,Vf,num_interaction);
+
 
         /* Do we include the Lth site?*/
         int last_site = L-1 + params.count("pbc");
@@ -307,6 +314,7 @@ int main(int argc, char* argv[]) {
 
             auto firstofS=S.index(1);
             int Nn=firstofS.nblock();
+
             vector<Real> Pn(Nn);
             vector<Real> Pna(Nn);
             int counter=0;
