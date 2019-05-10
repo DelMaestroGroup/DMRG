@@ -1,6 +1,6 @@
 # DMRG
 
-DMRG for studying entanglement in 1d systems
+DMRG for studying accessible entanglement in 1d systems.  Based on the amazing [ITensor](http://itensor.org/) software library.
 
 ## Installation
 
