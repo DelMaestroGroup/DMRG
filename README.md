@@ -17,7 +17,7 @@ you have installed the header files.
 
 For a list of all options try:
 
-    ./dmrg --help
+    ./dmrgSacc --help
 
     Accessible Entanglement via DMRG
     Usage:
